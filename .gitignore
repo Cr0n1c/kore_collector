@@ -1,0 +1,4 @@
+configuration.yaml
+*.pyc
+.idea
+.idea\*
