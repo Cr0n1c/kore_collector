@@ -1,4 +1,7 @@
-configuration.yaml
+var/conf/kore.yaml
+var/tmp/*
+var/log/*
+
 *.pyc
 .idea
 .idea\*

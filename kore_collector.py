@@ -1,22 +1,22 @@
-import schedule
+from collector.config import KoreConfig
+from collector import plugins
 
-import kore
-
-CONFIG_YAML = "configuration.yaml"
-
-def start_scheduler():
-
-def run_collectors():
-    pass
-
+CONFIG_YAML = "./var/conf/kore.yaml"
 
 if __name__ == "__main__":
-    print("[+] Loading Configuration YAML")
-    setup_conf = kore.Configuration(CONFIG_YAML)
+    print("[-] Loading config")
+    kore_config = KoreConfig(CONFIG_YAML)
+    args = ["ldap"]
 
-    print("[+] Starting up Scheduler")
-    start_scheduler()
+    files = []
+    for plugin_name in args:
+        print("\t\t[-] Loading plugin: %s" % plugin_name)
+        plugin = plugins.load_plugin(plugin_name)
+        plugin_config = kore_config.get_plugin_config(plugin_name, plugin.config)
 
-    print("[+] Starting up Collector")
-    run_collectors()
+        collector = plugin.collector(plugin_config)
+        collector.collect(kore_config.collector_config["tmp_dir"])
+        
 
+    print("[+] Starting up Collectors")
+    # collector.client.KoreClient(kore_config)
