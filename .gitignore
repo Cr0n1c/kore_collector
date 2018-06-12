@@ -8,3 +8,5 @@ __pycache__
 .idea
 .idea\*
 .vscode
+
+.DS_Store
