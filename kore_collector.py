@@ -20,6 +20,8 @@ def main():
                         type=str, help="path to config file")
     parser.add_argument("--all", dest="all_indicies", action='store_const', const=True,
                         default=False, help="dump all configured sources")
+    parser.add_argument("--persist", dest="persist", action='store_const', const=True,
+                        default=False, help="Persiste tmp data after completion")
     parser.add_argument(dest='source', nargs='+', default=[], type=str,
                         help='Sources to collects')
     args = parser.parse_args()
@@ -35,6 +37,8 @@ def main():
     for src in args.source:
         if src in configured_plugins:
             sources.append(src)
+        elif str.lower(src) == "noop":
+            sources.append("noop")
         else:
             print("\t[X] No config for source: %s" % src)
             exit(1)
@@ -62,8 +66,9 @@ def main():
     client = KoreClient(kore_config)
     client.upload_results(collector_result)
 
-    print("[+] Cleaning up...")
-    collector_result.cleanup()
+    if not args.persist:
+        print("[-] Cleaning up...")
+        collector_result.cleanup()
 
 if __name__ == "__main__":
     main()

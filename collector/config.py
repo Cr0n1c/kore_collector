@@ -36,8 +36,10 @@ class KoreConfig:
         return list(self.__plugin_configs.keys())
 
     def get_plugin_config(self, plugin_name, plugin_config=None):
-        config = self.__plugin_configs[plugin_name]
-        if plugin_config:
-            return plugin_config(config)
+        if plugin_name in self.__plugin_configs.keys():
+            config = self.__plugin_configs[plugin_name]
+            if plugin_config:
+                return plugin_config(config)
 
-        return dict(config)
+            return dict(config)
+        return {}
