@@ -18,11 +18,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="config_yaml", default=DEFAULT_CONFIG_YAML,
                         type=str, help="path to config file")
-    parser.add_argument("--all", dest="all_indicies", action='store_const', const=True,
+    parser.add_argument("--all", dest="all_sources", action='store_const', const=True,
                         default=False, help="dump all configured sources")
     parser.add_argument("--persist", dest="persist", action='store_const', const=True,
                         default=False, help="Persiste tmp data after completion")
-    parser.add_argument(dest='source', nargs='+', default=[], type=str,
+    parser.add_argument(dest='source', nargs='*', default=[], type=str,
                         help='Sources to collects')
     args = parser.parse_args()
 
@@ -34,14 +34,20 @@ def main():
 
     # verify source configs
     sources = []
-    for src in args.source:
-        if src in configured_plugins:
-            sources.append(src)
-        elif str.lower(src) == "noop":
+    if args.all_sources:
+        if "noop" in args.source:
             sources.append("noop")
-        else:
-            print("\t[X] No config for source: %s" % src)
-            exit(1)
+        sources += configured_plugins
+    else:
+        for src in args.source:
+            if src in configured_plugins:
+                sources.append(src)
+            elif str.lower(src) == "noop":
+                sources.append("noop")
+            else:
+                print("\t[X] No config for source: %s" % src)
+                exit(1)
+
 
     # load source plugins
     print("[+] Starting up Collectors")

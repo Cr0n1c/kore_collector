@@ -17,5 +17,15 @@ Each collector plugin should implement a `collect()` menthod which...
 Collector should be run on a cron-job to push data into the Kore backend. Specify the the sources to collect from as arguments.
 
 ```
-./kore_collector.py ldap sccm nessus
+usage: kore_collector.py [-h] [-c CONFIG_YAML] [--all] [--persist] [source [source ...]]
+
+positional arguments:
+  source                Sources to collects
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG_YAML, --config CONFIG_YAML
+                        path to config file
+  --all                 dump all configured sources
+  --persist             Persiste tmp data after completion
 ```
