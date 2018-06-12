@@ -5,8 +5,9 @@ This module is used to collect data from configured source and push it to the Ko
 import argparse
 import os
 
-from collector.config import KoreConfig
 from collector.client import KoreClient
+from collector.config import KoreConfig
+from collector import plugins, CollectorResult
 
 DEFAULT_CONFIG_YAML = "./var/conf/kore.yaml"
 
@@ -40,15 +41,29 @@ def main():
 
     # load source plugins
     print("[+] Starting up Collectors")
+    collectors = []
     for src in sources:
-        print("\t[-] Collecting from source: %s" % src)
-        # plugin = plugins.load_plugin(plugin_name)
-        # plugin_config = kore_config.get_plugin_config(plugin_name, plugin.config)
+        print("\t[-] %s" % src)
+        plugin = plugins.load_plugin(src)
+        cfg_type = None
+        if "config" in dir(plugin):
+            cfg_type = plugin.config
+        plugin_config = kore_config.get_plugin_config(src, cfg_type)
+        collector = plugin.collector(kore_config.collector_config["tmp_dir"], plugin_config)
+        collectors.append(collector)
+
+    # collect
+    collector_result = CollectorResult()
+    print("[+] Collecting data")
+    for collector in collectors:
+        collector_result += collector.collect()
 
     print("[+] Uploading data...")
     client = KoreClient(kore_config)
-    print(client)
+    client.upload_results(collector_result)
 
+    print("[+] Cleaning up...")
+    collector_result.cleanup()
 
 if __name__ == "__main__":
     main()

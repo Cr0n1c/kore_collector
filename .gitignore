@@ -1,6 +1,6 @@
 var/conf/kore.yaml
-var/tmp/*
-var/log/*
+var/tmp
+var/log
 
 __pycache__
 *.pyc

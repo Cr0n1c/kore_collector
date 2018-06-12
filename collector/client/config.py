@@ -1,5 +1,3 @@
-import urllib
-
 CONFIG_KEY_HOST = "aggregator_host"
 CONFIG_KEY_PORT = "aggregator_port"
 CONFIG_KEY_TOKEN = "aggregator_token"
@@ -29,11 +27,11 @@ class KoreClientConfig(object):
         port = 18226
         if CONFIG_KEY_PORT in config_keys:
             port = int(kore_client_config[CONFIG_KEY_PORT])
-        
+
         self.__url = "%s://%s:%d/" % (scheme, host, port)
 
     def __str__(self):
-        return "KoreClient: %s" % self.__url
+        return "<KoreClientConfig: %s>" % self.__url
 
     def get_url(self):
         return str(self.__url)

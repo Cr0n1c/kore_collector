@@ -14,3 +14,4 @@ kore:
         users: "(&(objectClass=user)(objectCategory=person))"
         computers: "(objectClass=computer)"
         groups: "(objectClass=group)"
+    noop: {}

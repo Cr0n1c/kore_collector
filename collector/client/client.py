@@ -8,7 +8,7 @@ class KoreClient(object):
         self.__config = KoreClientConfig(kore_config.client_config)
 
     def __str__(self):
-        return "KoreClient: %s" % self.__config.get_url()
+        return "<KoreClient: %s>" % self.__config.get_url()
 
-    def print_config(self):
-        print(self.__config)
+    def upload_results(self, collector_result):
+        print(collector_result)
