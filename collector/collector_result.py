@@ -1,18 +1,20 @@
 
-class CollectorResult:
-    __slots__ = ["__events", "__entities", "error_message"]
+class CollectorResult(object):
+    __slots__ = ["__events", "__entities", "__error_message"]
 
-    def __init__(self, event_paths = [], entity_paths = [], error_msg = None):
+    def __init__(self, event_paths=None, entity_paths=None, error_message=None):
         self.__events = event_paths
         self.__entities = entity_paths
-        self.error_message = error_msg
-        pass
+        self.__error_message = error_message
 
     def events(self):
-        return self.__events
+        return self.__events if self.__events else []
 
     def entities(self):
-        return self.__entities
+        return self.__entities if self.__entities else []
 
     def is_error(self):
-        return self.error_message is not None
+        return self.__error_message is not None
+
+    def error_message(self):
+        return str(self.__error_message)

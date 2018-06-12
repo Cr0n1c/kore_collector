@@ -1,10 +1,14 @@
-from ..config import KoreConfig
+""" Collector plugin super class
 
-class CollectorPlugin:
-    __slots__ = ["__config"]
+This class handles saving data that has been collected to disk
+"""
 
-    def __init__(self):
-        pass
+class CollectorPlugin(object):
+    __slots__ = ["__tmp_dir"]
 
-    def save(self, tmp_dir, entities):
-        print tmp_dir
+    def __init__(self, tmp_dir):
+        self.__tmp_dir = tmp_dir
+
+    def save(self, data):
+        print(self.__tmp_dir)
+        print(data)

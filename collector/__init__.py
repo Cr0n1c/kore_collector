@@ -1,7 +1,6 @@
-from collector_result import CollectorResult
-from config import KoreConfig
-import plugins
-# from client import CollectorResult
+from .collector_result import CollectorResult
+from .config import KoreConfig
+# import plugins as p
 
 # class Source:
 
