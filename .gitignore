@@ -1,4 +1,12 @@
-configuration.yaml
+var/conf/kore.yaml
+var/tmp
+var/log
+
+__pycache__
 *.pyc
+
 .idea
 .idea\*
+.vscode
+
+.DS_Store

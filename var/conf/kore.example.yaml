@@ -1,0 +1,16 @@
+kore:
+  client:
+    aggregator_host: "localhost"
+    aggregator_port: 18226
+    aggregator_token: "INSERT_TOKEN_HERE"
+  collector:
+    tmp_dir: "./var/tmp"
+    log_dir: "./var/log"
+  plugins:
+    ldap:
+      bind_dn: "CN=Administrator,CN=Users,DC=contoso,DC=com"
+      bind_passwd: "planin_text_secret"
+      entities:
+        users: "(&(objectClass=user)(objectCategory=person))"
+        computers: "(objectClass=computer)"
+        groups: "(objectClass=group)"
