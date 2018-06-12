@@ -17,8 +17,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="config_yaml", default=DEFAULT_CONFIG_YAML,
                         type=str, help="path to config file")
-    parser.add_argument("-t", "--token", dest="config_yaml", default=None,
-                        type=str, help="Kore Aggregator token")
     parser.add_argument("--all", dest="all_indicies", action='store_const', const=True,
                         default=False, help="dump all configured sources")
     parser.add_argument(dest='source', nargs='+', default=[], type=str,
