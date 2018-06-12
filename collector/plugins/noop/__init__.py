@@ -4,7 +4,7 @@ from ..collector_plugin import CollectorPlugin
 from ...collector_result import CollectorResult
 
 class NoopPlugin(CollectorPlugin):
-    def __init__(self, tmp_dir, ldap_config):
+    def __init__(self, tmp_dir, noop_config):
         pass
 
     def __str__(self):
